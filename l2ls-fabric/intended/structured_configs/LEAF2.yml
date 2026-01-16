@@ -1,0 +1,194 @@
+aaa_authentication:
+  policies:
+    local:
+      allow_nopassword: true
+aaa_authorization:
+  exec:
+    default: local
+aaa_root:
+  disabled: true
+config_end: true
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  cvvrf: MGMT
+  disable_aaa: true
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+enable_password:
+  disabled: true
+eos_cli: "no username admin\nusername cvpadmin secret sha512 $6$9YOsNpvEC2OsaVYe$icnoEbJ1ECCVl.udQ5QtLLyeyWT4foRs6xIvkjjNcCfI0Vi66ukJziOnWcDQPQixHCQAGKuqpoMwC1YkCtLgw0\nusername
+  cwomble secret *\nusername cwomble ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOZFQIhHNghkuJryYiNyFUbkVPyGH2tU1gFuoJ/wDDg420VY9tb1OQn7k+XoDaVWWoEoOek07sJzns0Yy7WYUhgHP3T8Q3qW2DRjRDCUgUXnt9iW9N/axh4U4OP71UbWJNw3D6b5JE4EWt56okFcR6eSAyyKoYZvUAiCX1oUGVbRDz0cTNTbbnYHXp8DFBM/3fLNrO7Ntif+1ZtY8IQoZoDaOZpQLqTt40QGBAJgyXy0xP3urSaSJP2alSZP0g2IY9WebHaJAKnzP+SCuU4pMpcWYE3EoevYB6RLy12WylXq7Ht8sy2cjB9HH19BM4lNvRJ7ArjsL8enBP4OdqdyCH/SfLy6YrQ2EFidNpxnGBNVxIA7lkK82jLGFiqKJJNapZW4nRljT+KVMFEh/NTDP61wYmUPCR331+e3TiKsapwcIN/Q1+20WBVf11RseChjLqZzu54y9PDw/MA8ra8mPbuenhNJ6Xw8nkZbeUr+o/jZHwTP0sTLFyv4uJKvOACBc=\nusername
+  dlyssenko secret *\nusername dlyssenko ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDNXb2O9ciq3TIVGJOh3/XARvlg45QUAo6FFB0p7rnAXAd+z7AzXg2j9uFQ9NTuiupFdYWDAXYg6RNcrX3vjoSBOxb/cnSYREG9GLB+aVyxZ8fPDN4wq4s+VQzrSmzvBZ+P7/Y4E4GAZiRE3MaK/cPIqFrbHhZYfrg8BBivenCK4ztEI/OYAGWzza/5v6Mx3fW1xGsgZtFO6epmv0/OqRq8WnwoJiXdn0INa0Yx3xI5JbBpUj49EHUXpwo1HB+SEIzy0WxSoy4gVBic7qEXG2alfUtOqNPmgU6MVE0uiKspdKqoF0NYEO/cLSwIgBENnGX4y2NvAxTfgrHub2z+WpA9/Mo65rNnKNQdQ8xOAVyoeXMHwGcRZYN3HkK5NK+7jb7RWHcIieb/+7LGhRAQg8BhY7h3I6cpA7qTF4j3UAJRH6zS7wVRNqDM40EgEmylA+w2qMt7E+csTjgNJ3KX/jY0AG8jWeR7cZhvTnIfkGw4u9fhmLQSW4LSJpztJ0T0Otc=\nusername
+  ec2-user shell /bin/bash nopassword\nusername ec2-user ssh-key ssh-rsa ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3yBHpkGs7C7uoW4Ah7pP8TVQSVLXFpuCj1jPaVS25+lLJ0ABdRUvv1jzju8xsRLmFT5SxkBRUCaUIB4GUMietEsSkRGyzzR3Tie9gdqPg/0RPP9FOC3//IvDwQ1d0EhEtyPNZQbi/AB1leb5KBEKBgAyzN9Zgs2CPwfqXIEnZBtoljKXHUsGK5ePxQvfaF1UFEStpYwtMcz2KLFrTiI+gbKfrEvrxXpbpO+MKr0/mfLA1COVrkKDNzPuOn9wv52NUOY+WZS1xyKDuv6wx3F9LUYsoTjc/frDDxpVJk//kBOGmpg7U18GaKnZpcMZyJCjd24tqraodNoeUPJOY+yjpisTn8dNHerQe9hHczQQVfoF5P5wMFdamUUTdh6CMgBy869tWPkIocvYDqpEHQmBVe39In1Aby8hfnQoAFBPOdN1wLytXjKyc0QWr1iDYQIsC7VPF/4OXoP7W3GI/3FYetV5s//mefqEY1tYwQGWf5GdaicTXIuEXBjU1901pffE=
+  nonroot@buildkitsandbox\nusername gcp-user secret *\nusername gcp-user ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGPEoZ2l67eEEwrlGfBAHPMx44IoqhyfjqXj2Ka4PxLuHgi1mv131VuCRlyWjOjddccyFUilfR1Bprdmd1Tj7o4Q11YQ138LOqFWJT3h0pxgHFdIHo70y4rI8aL15ixukZYa+g9KX8qTN+ZpFfea2d3CEFzMp+Y3xVPiWwLKzalq1JwT5J4MK2VHCbcnpN3zRON+gca/iZH9upA0WaXWJXNBnYXrgXFVGCJFk6Yl1ZXIGnEcKGe44c77zWgF4C66VhltsW999XD5vF31f6TTs25qxGScsiKMDg2uM1AzVg5KfxxhVy5HKd23YJJMytvUXL9h5Wq1HEEluSCcFtNI81\nusername
+  mircea secret *\nusername mircea ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDw26o1dbfin+wgiYhiHybYebcYlS1EpucVdzfZASTkaMnCiaGy61mLtCaiZA82MEMNbkHLr9WgO2f9pHN2fiIiJc2gmlZPAUvSDzOHQapGuWzoPbeoKTaPyEzkDD5IzerV8wgMooaJOIWU9dWRjVPpUyj2GJ3JirC3HiLRnhkHFh3F+vUkEL81lMzJ/0HdnW3WrIjU6JnuOnpjiJ+np1OEPSbBdANT89tzaEm87QUioPQF7hHknKFUYK2Zqh5SXR6vQaLEcIhRqlAvZyjc95vDtYFWzqrdrHTdznyr8Hs/R2OeLmPGArGm6V8sGC9Q1bGfbhwjxvoWH9igUO6d82HKL2h8PJ1gXJU4XCb6Dkft7y0M4CDx6tIOo9jDxwFRtim9oC0uwxsRoXL4xCDYGH+jO4RAQSVxP6MQsJBEOvXez6whUev1lR91CiXmtUwQfzfmol03U8xMsBkdZ+Y4B7AkBUIpi/+8aEbMwRACyDZJB0+FzkYuWIYpiqoQ4pwUVw8=\nusername
+  service shell /bin/bash secret sha512 $6$0aCuP4HkQOWU/ozJ$fKtSPXcfpJmYPhTG.bv9MWirsPRF7Q7ZmUtMj5w8BY7.f2qdNHB3LxmpbGvEiOZTnvGdBvf7P9qF2NeskLKpw/\n!\nagent
+  KernelFib environment KERNELFIB_PROGRAM_ALL_ECMP='true'\nsystem l1\n  unsupported speed action error\n  unsupported error-correction
+  action error"
+ethernet_interfaces:
+- name: Ethernet47
+  description: MLAG_LEAF1_Ethernet47
+  shutdown: false
+  channel_group:
+    id: 47
+    mode: active
+  peer: LEAF1
+  peer_interface: Ethernet47
+  peer_type: mlag_peer
+- name: Ethernet48
+  description: MLAG_LEAF1_Ethernet48
+  shutdown: false
+  channel_group:
+    id: 47
+    mode: active
+  peer: LEAF1
+  peer_interface: Ethernet48
+  peer_type: mlag_peer
+- name: Ethernet1
+  description: L2_SPINE1_Ethernet2
+  shutdown: false
+  channel_group:
+    id: 1
+    mode: active
+  peer: SPINE1
+  peer_interface: Ethernet2
+  peer_type: l2spine
+- name: Ethernet2
+  description: L2_SPINE2_Ethernet2
+  shutdown: false
+  channel_group:
+    id: 1
+    mode: active
+  peer: SPINE2
+  peer_interface: Ethernet2
+  peer_type: l2spine
+- name: Ethernet3
+  description: SERVER_HostB_Eth1
+  shutdown: false
+  spanning_tree_portfast: edge
+  peer: HostB
+  peer_interface: Eth1
+  peer_type: server
+  port_profile: PP-GREEN
+  switchport:
+    enabled: true
+    mode: access
+    access_vlan: 20
+hostname: LEAF2
+ip_domain_lookup:
+  source_interfaces:
+  - name: Management1
+    vrf: MGMT
+ip_igmp_snooping:
+  globally_enabled: true
+ip_name_servers:
+- ip_address: 8.8.4.4
+  vrf: MGMT
+- ip_address: 8.8.8.8
+  vrf: MGMT
+local_users:
+- name: admin
+  privilege: 15
+  role: network-admin
+  no_password: true
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$Enl0WfE32FthwyiJ$yTyGaEJ2uPKLU.F7314YtB7J1jrzrMi7ogXIRTEHQfLdLgKWWmr1UvNlZLN6AyuxET7G5aH3AI9OYRzxVTkB1.
+management_api_http:
+  enable_https: true
+  enable_vrfs:
+  - name: MGMT
+management_interfaces:
+- name: Management1
+  description: OOB_MANAGEMENT
+  shutdown: false
+  vrf: MGMT
+  ip_address: 192.168.0.15/24
+  type: oob
+  gateway: 172.16.100.1
+metadata:
+  is_deployed: true
+  platform: vEOSLab
+  fabric_name: DC1
+mlag_configuration:
+  domain_id: RACK1
+  local_interface: Vlan4094
+  peer_address: 192.168.0.0
+  peer_link: Port-Channel47
+  reload_delay_mlag: '300'
+  reload_delay_non_mlag: '330'
+ntp:
+  local_interface:
+    name: Management1
+    vrf: MGMT
+  servers:
+  - name: time.google.com
+    preferred: true
+    vrf: MGMT
+  - name: pool.ntp.org
+    vrf: MGMT
+port_channel_interfaces:
+- name: Port-Channel47
+  description: MLAG_LEAF1_Port-Channel47
+  shutdown: false
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      groups:
+      - MLAG
+- name: Port-Channel1
+  description: L2_SPINES_Port-Channel1
+  shutdown: false
+  mlag: 1
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,20,40
+service_routing_protocols_model: multi-agent
+spanning_tree:
+  mode: mstp
+  mst_instances:
+  - id: '0'
+    priority: 16384
+  no_spanning_tree_vlan: '4094'
+static_routes:
+- vrf: MGMT
+  prefix: 0.0.0.0/0
+  next_hop: 172.16.100.1
+transceiver_qsfp_default_mode_4x10: true
+vlan_interfaces:
+- name: Vlan4094
+  description: MLAG
+  shutdown: false
+  ip_address: 192.168.0.1/31
+  mtu: 1500
+  no_autostate: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+vlans:
+- id: 4094
+  name: MLAG
+  trunk_groups:
+  - MLAG
+  tenant: system
+- id: 10
+  name: BLUE-NET
+  tenant: MY_FABRIC
+- id: 20
+  name: GREEN-NET
+  tenant: MY_FABRIC
+- id: 40
+  name: all
+  tenant: MY_FABRIC
+vrfs:
+- name: MGMT
+  ip_routing: false

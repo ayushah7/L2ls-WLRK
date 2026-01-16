@@ -1,0 +1,21 @@
+- name: Configuration deployment
+  hosts: FABRIC # <-- Targeted devices
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - vault.yml
+
+  vars:
+    cv_server: "192.168.0.5"
+    cv_verify_certs: false
+
+    # OR username/password (common for on-prem CVP)
+    cv_username: "cvpadmin"
+    cv_password: "{{ vault_cv_password }}"
+
+  tasks:
+    - name: Deploy configurations and tags to CloudVision
+      ansible.builtin.import_role:
+        name: arista.avd.cv_deploy
+

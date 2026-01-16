@@ -1,0 +1,35 @@
+# inventory.yml
+
+CLOUDVISION:
+  hosts:
+    cvp:
+      ansible_host: 	10.18.165.53
+
+FABRIC:
+  children:
+    DC1:
+      children:
+        DC1_SPINES:
+          hosts:
+            SPINE1:
+              ansible_host: 10.18.154.85
+            SPINE2:
+              ansible_host: 10.18.158.178
+        DC1_LEAFS:
+          hosts:
+            LEAF1:
+              ansible_host: 10.18.160.225
+            LEAF2:
+              ansible_host: 10.18.166.144
+            LEAF3:
+              ansible_host: 10.18.153.100
+            LEAF4:
+              ansible_host: 172.16.100.108
+    DC1_NETWORK_SERVICES:
+      children:
+        DC1_LEAFS:
+        DC1_SPINES:
+    DC1_ENDPOINTS:
+      children:
+        DC1_LEAFS:
+        DC1_SPINES:
