@@ -27,6 +27,34 @@ port_profiles:
   - profile: PP-FIREWALL
     mode: trunk
     vlans: "10,20,30"
+  - profile: PP-DOT1X
+    mode: "trunk phone"
+    spanning_tree_portfast: edge
+    spanning_tree_bpduguard: enabled
+    poe:
+      priority: critical
+      reboot:
+        action: maintain
+      link_down:
+        action: maintain
+      shutdown:
+        action: power-off
+      limit:
+        class: 4
+    dot1x:
+      port_control: auto
+      reauthentication: true
+      pae:
+        mode: authenticator
+      host_mode:
+        mode: multi-host
+        multi_host_authenticated: true
+      mac_based_authentication:
+        enabled: true
+      timeout:
+        reauth_period: server
+        tx_period: 3
+      reauthorization_request_limit: 3
 
 servers:
   - name: HostA
@@ -35,7 +63,7 @@ servers:
       - endpoint_ports: [Eth1]
         switch_ports: [Ethernet3]
         switches: [LEAF1]
-        profile: PP-BLUE
+        profile: PP-DEFAULTS
   - name: HostB
     rack: POD1
     adapters:

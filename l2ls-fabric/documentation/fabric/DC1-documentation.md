@@ -108,7 +108,7 @@
 | Name | Port | Fabric Device | Fabric Port | Description | Shutdown | Mode | Access VLAN | Trunk Allowed VLANs | Profile |
 | ---- | ---- | ------------- | ------------| ----------- | -------- | ---- | ----------- | ------------------- | ------- |
 | Host2 | Eth1 | LEAF4 | Ethernet3 | SERVER_Host2_Eth1 | False | access | 30 | - | PP-ORANGE |
-| HostA | Eth1 | LEAF1 | Ethernet3 | SERVER_HostA_Eth1 | False | access | 10 | - | PP-BLUE |
+| HostA | Eth1 | LEAF1 | Ethernet3-45 | SERVER_HostA_Eth1 | False | trunk phone | - | - | PP-DOT1X |
 | HostB | Eth1 | LEAF2 | Ethernet3 | SERVER_HostB_Eth1 | False | access | 20 | - | PP-GREEN |
 | HostC | Eth1 | LEAF3 | Ethernet3 | SERVER_HostC_Eth1 | False | access | 10 | - | PP-BLUE |
 
@@ -118,6 +118,7 @@
 | ------------ | -------------- |
 | PP-BLUE | PP-DEFAULTS |
 | PP-DEFAULTS | - |
+| PP-DOT1X | - |
 | PP-FIREWALL | - |
 | PP-GREEN | PP-DEFAULTS |
 | PP-ORANGE | PP-DEFAULTS |

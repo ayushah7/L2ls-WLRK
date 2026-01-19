@@ -65,18 +65,32 @@ ethernet_interfaces:
   peer: SPINE2
   peer_interface: Ethernet1
   peer_type: l2spine
-- name: Ethernet3
+- name: Ethernet3-45
   description: SERVER_HostA_Eth1
   shutdown: false
+  dot1x:
+    port_control: auto
+    reauthentication: true
+    pae:
+      mode: authenticator
+    host_mode:
+      mode: multi-host
+      multi_host_authenticated: true
+    mac_based_authentication:
+      enabled: true
+    timeout:
+      reauth_period: server
+      tx_period: 3
+    reauthorization_request_limit: 3
+  spanning_tree_bpduguard: enabled
   spanning_tree_portfast: edge
   peer: HostA
   peer_interface: Eth1
   peer_type: server
-  port_profile: PP-BLUE
+  port_profile: PP-DOT1X
   switchport:
     enabled: true
-    mode: access
-    access_vlan: 10
+    mode: trunk phone
 hostname: LEAF1
 ip_domain_lookup:
   source_interfaces:

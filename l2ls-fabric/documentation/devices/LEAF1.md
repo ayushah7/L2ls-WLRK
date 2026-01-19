@@ -38,6 +38,8 @@
   - [Static Routes](#static-routes)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
+- [802.1X Port Security](#8021x-port-security)
+  - [802.1X Summary](#8021x-summary)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
@@ -333,7 +335,7 @@ vlan 4094
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | L2_SPINE1_Ethernet1 | *trunk | *10,20,40 | *- | *- | 1 |
 | Ethernet2 | L2_SPINE2_Ethernet1 | *trunk | *10,20,40 | *- | *- | 1 |
-| Ethernet3 | SERVER_HostA_Eth1 | access | 10 | - | - | - |
+| Ethernet3-45 | SERVER_HostA_Eth1 | trunk phone | - | - | - | - |
 | Ethernet47 | MLAG_LEAF2_Ethernet47 | *trunk | *- | *- | *MLAG | 47 |
 | Ethernet48 | MLAG_LEAF2_Ethernet48 | *trunk | *- | *- | *MLAG | 47 |
 
@@ -353,13 +355,21 @@ interface Ethernet2
    no shutdown
    channel-group 1 mode active
 !
-interface Ethernet3
+interface Ethernet3-45
    description SERVER_HostA_Eth1
    no shutdown
-   switchport access vlan 10
-   switchport mode access
+   switchport mode trunk phone
    switchport
    spanning-tree portfast
+   spanning-tree bpduguard enable
+   dot1x pae authenticator
+   dot1x reauthentication
+   dot1x port-control auto
+   dot1x host-mode multi-host authenticated
+   dot1x mac based authentication
+   dot1x timeout tx-period 3
+   dot1x timeout reauth-period server
+   dot1x reauthorization request limit 3
 !
 interface Ethernet47
    description MLAG_LEAF2_Ethernet47
@@ -493,6 +503,16 @@ ip route vrf MGMT 0.0.0.0/0 172.16.100.1
 
 ```eos
 ```
+
+## 802.1X Port Security
+
+### 802.1X Summary
+
+#### 802.1X Interfaces
+
+| Interface | PAE Mode | Supplicant Profile | State | Phone Force Authorized | Reauthentication | Auth Failure Action | Host Mode | Mac Based Auth | Eapol |
+| --------- | -------- | ------------------ | ----- | ---------------------- | ---------------- | ------------------- | --------- | -------------- | ----- |
+| Ethernet3-45 | authenticator | - | auto | - | True | - | multi-host | True | - |
 
 ## VRF Instances
 
