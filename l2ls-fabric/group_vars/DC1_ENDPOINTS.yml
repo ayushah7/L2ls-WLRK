@@ -1,7 +1,7 @@
 ---
 ### group_vars/DC1_ENDPOINTS.yml
 
-connected_endpoints_keys:
+connected_endpoints_keys: # dynamic_key: connected_endpoints
   - key: servers
     type: server
   - key: firewalls

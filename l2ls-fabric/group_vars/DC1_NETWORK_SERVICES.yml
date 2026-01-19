@@ -1,7 +1,7 @@
 ---
 ### group_vars/DC1_NETWORK_SERVICES.yml
 
-tenants:
+tenants: # dynamic_key: network_services
   - name: MY_FABRIC
     l2vlans:
       - id: 10
