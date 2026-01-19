@@ -13,9 +13,9 @@ tenants:
       - id: 30
         name: 'ORANGE-NET'
         tags: [orangezone]
-      - id: 40
-        name: 'all'
-        tags: [allzone]
+      # - id: 40
+      #   name: 'all'
+      #   tags: [allzone]
 
 
 # Incase SVIs lie on the Spines (l3spine)

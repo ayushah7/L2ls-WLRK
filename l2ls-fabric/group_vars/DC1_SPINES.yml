@@ -1,7 +1,8 @@
 ---
 ### group_vars/DC1_SPINES.yml
 
-type: l2spine     # Must be either l2spine|l3spine
+#type: l3spine
+type: l2spine     # Must be either l2spine|l3spine (if svis on spines)
 
 # Spine Switches (L2 only)
 l2spine:

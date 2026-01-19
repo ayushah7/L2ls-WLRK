@@ -38,8 +38,6 @@
   - [Static Routes](#static-routes)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
-- [802.1X Port Security](#8021x-port-security)
-  - [802.1X Summary](#8021x-summary)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
@@ -302,7 +300,6 @@ vlan internal order ascending range 1006 1199
 | ------- | ---- | ------------ |
 | 10 | BLUE-NET | - |
 | 20 | GREEN-NET | - |
-| 40 | all | - |
 | 4094 | MLAG | MLAG |
 
 ### VLANs Device Configuration
@@ -314,9 +311,6 @@ vlan 10
 !
 vlan 20
    name GREEN-NET
-!
-vlan 40
-   name all
 !
 vlan 4094
    name MLAG
@@ -333,9 +327,9 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | L2_SPINE1_Ethernet1 | *trunk | *10,20,40 | *- | *- | 1 |
-| Ethernet2 | L2_SPINE2_Ethernet1 | *trunk | *10,20,40 | *- | *- | 1 |
-| Ethernet3-45 | SERVER_HostA_Eth1 | trunk phone | - | - | - | - |
+| Ethernet1 | L2_SPINE1_Ethernet1 | *trunk | *10,20 | *- | *- | 1 |
+| Ethernet2 | L2_SPINE2_Ethernet1 | *trunk | *10,20 | *- | *- | 1 |
+| Ethernet3 | SERVER_HostA_Eth1 | - | - | - | - | - |
 | Ethernet47 | MLAG_LEAF2_Ethernet47 | *trunk | *- | *- | *MLAG | 47 |
 | Ethernet48 | MLAG_LEAF2_Ethernet48 | *trunk | *- | *- | *MLAG | 47 |
 
@@ -355,21 +349,11 @@ interface Ethernet2
    no shutdown
    channel-group 1 mode active
 !
-interface Ethernet3-45
+interface Ethernet3
    description SERVER_HostA_Eth1
    no shutdown
-   switchport mode trunk phone
    switchport
    spanning-tree portfast
-   spanning-tree bpduguard enable
-   dot1x pae authenticator
-   dot1x reauthentication
-   dot1x port-control auto
-   dot1x host-mode multi-host authenticated
-   dot1x mac based authentication
-   dot1x timeout tx-period 3
-   dot1x timeout reauth-period server
-   dot1x reauthorization request limit 3
 !
 interface Ethernet47
    description MLAG_LEAF2_Ethernet47
@@ -390,7 +374,7 @@ interface Ethernet48
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | L2_SPINES_Port-Channel1 | trunk | 10,20,40 | - | - | - | - | 1 | - |
+| Port-Channel1 | L2_SPINES_Port-Channel1 | trunk | 10,20 | - | - | - | - | 1 | - |
 | Port-Channel47 | MLAG_LEAF2_Port-Channel47 | trunk | - | - | MLAG | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
@@ -400,7 +384,7 @@ interface Ethernet48
 interface Port-Channel1
    description L2_SPINES_Port-Channel1
    no shutdown
-   switchport trunk allowed vlan 10,20,40
+   switchport trunk allowed vlan 10,20
    switchport mode trunk
    switchport
    mlag 1
@@ -504,16 +488,6 @@ ip route vrf MGMT 0.0.0.0/0 172.16.100.1
 ```eos
 ```
 
-## 802.1X Port Security
-
-### 802.1X Summary
-
-#### 802.1X Interfaces
-
-| Interface | PAE Mode | Supplicant Profile | State | Phone Force Authorized | Reauthentication | Auth Failure Action | Host Mode | Mac Based Auth | Eapol |
-| --------- | -------- | ------------------ | ----- | ---------------------- | ---------------- | ------------------- | --------- | -------------- | ----- |
-| Ethernet3-45 | authenticator | - | auto | - | True | - | multi-host | True | - |
-
 ## VRF Instances
 
 ### VRF Instances Summary
@@ -534,6 +508,7 @@ vrf instance MGMT
 ```eos
 !
 no username admin
+username ansible privilege 15 secret sha512 $6$LTw4ltCzcaqVhumg$wOl3SufpK9iFHW7YnhHinT5UtWxwWU/gKfjUyKEmFYYf5CgxdZiihuFfPR48kwZ4mOXf8vZ/7/XZR9URrom7k0
 username cvpadmin secret sha512 $6$9YOsNpvEC2OsaVYe$icnoEbJ1ECCVl.udQ5QtLLyeyWT4foRs6xIvkjjNcCfI0Vi66ukJziOnWcDQPQixHCQAGKuqpoMwC1YkCtLgw0
 username cwomble secret *
 username cwomble ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOZFQIhHNghkuJryYiNyFUbkVPyGH2tU1gFuoJ/wDDg420VY9tb1OQn7k+XoDaVWWoEoOek07sJzns0Yy7WYUhgHP3T8Q3qW2DRjRDCUgUXnt9iW9N/axh4U4OP71UbWJNw3D6b5JE4EWt56okFcR6eSAyyKoYZvUAiCX1oUGVbRDz0cTNTbbnYHXp8DFBM/3fLNrO7Ntif+1ZtY8IQoZoDaOZpQLqTt40QGBAJgyXy0xP3urSaSJP2alSZP0g2IY9WebHaJAKnzP+SCuU4pMpcWYE3EoevYB6RLy12WylXq7Ht8sy2cjB9HH19BM4lNvRJ7ArjsL8enBP4OdqdyCH/SfLy6YrQ2EFidNpxnGBNVxIA7lkK82jLGFiqKJJNapZW4nRljT+KVMFEh/NTDP61wYmUPCR331+e3TiKsapwcIN/Q1+20WBVf11RseChjLqZzu54y9PDw/MA8ra8mPbuenhNJ6Xw8nkZbeUr+o/jZHwTP0sTLFyv4uJKvOACBc=
