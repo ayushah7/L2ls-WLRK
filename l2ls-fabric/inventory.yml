@@ -24,7 +24,7 @@ FABRIC:
             LEAF3:
               ansible_host: 10.18.153.100
             LEAF4:
-              ansible_host: 172.16.100.108
+              ansible_host: 10.18.154.244
     DC1_NETWORK_SERVICES:
       children:
         DC1_LEAFS:

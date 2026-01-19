@@ -1,0 +1,217 @@
+Device,Test Name,Test Status,Message(s),Test description,Test category
+LEAF1,VerifyRunningConfigDiffs,failure,"--- flash:/startup-config
++++ system:/running-config
+@@ -5,6 +5,7 @@
+ no aaa root
+ no username admin
+ !
++username ansible privilege 15 secret sha512 $6$9dzCq6MqqCCqV9cz$jDLHrHe2BcTvqYKXaG.GdpEYnoyxe0iM78pqtf0Z51KyqQ32yjbB808iJe63snUS/GDRc6KiscxXl/IqbKPw70
+ username cvpadmin secret sha512 $6$9YOsNpvEC2OsaVYe$icnoEbJ1ECCVl.udQ5QtLLyeyWT4foRs6xIvkjjNcCfI0Vi66ukJziOnWcDQPQixHCQAGKuqpoMwC1YkCtLgw0
+ username cwomble secret *
+ username cwomble ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOZFQIhHNghkuJryYiNyFUbkVPyGH2tU1gFuoJ/wDDg420VY9tb1OQn7k+XoDaVWWoEoOek07sJzns0Yy7WYUhgHP3T8Q3qW2DRjRDCUgUXnt9iW9N/axh4U4OP71UbWJNw3D6b5JE4EWt56okFcR6eSAyyKoYZvUAiCX1oUGVbRDz0cTNTbbnYHXp8DFBM/3fLNrO7Ntif+1ZtY8IQoZoDaOZpQLqTt40QGBAJgyXy0xP3urSaSJP2alSZP0g2IY9WebHaJAKnzP+SCuU4pMpcWYE3EoevYB6RLy12WylXq7Ht8sy2cjB9HH19BM4lNvRJ7ArjsL8enBP4OdqdyCH/SfLy6YrQ2EFidNpxnGBNVxIA7lkK82jLGFiqKJJNapZW4nRljT+KVMFEh/NTDP61wYmUPCR331+e3TiKsapwcIN/Q1+20WBVf11RseChjLqZzu54y9PDw/MA8ra8mPbuenhNJ6Xw8nkZbeUr+o/jZHwTP0sTLFyv4uJKvOACBc=
+",Verifies there is no difference between the running-config and the startup-config.,Configuration
+LEAF1,VerifyZeroTouch,success,,Verifies ZeroTouch is disabled.,Configuration
+LEAF1,VerifyLLDPNeighbors,success,,Verifies the connection status of the specified LLDP (Link Layer Discovery Protocol) neighbors.,Connectivity
+LEAF1,VerifyEnvironmentCooling,skipped,VerifyEnvironmentCooling test is not supported on vEOS-lab,Verifies the status of power supply fans and all fan trays.,Hardware
+LEAF1,VerifyEnvironmentPower,skipped,VerifyEnvironmentPower test is not supported on vEOS-lab,Verifies the power supplies state and input voltage.,Hardware
+LEAF1,VerifyEnvironmentSystemCooling,skipped,VerifyEnvironmentSystemCooling test is not supported on vEOS-lab,Verifies the device's system cooling status.,Hardware
+LEAF1,VerifyTemperature,skipped,VerifyTemperature test is not supported on vEOS-lab,Verifies if the device temperature is within acceptable limits.,Hardware
+LEAF1,VerifyTransceiversTemperature,skipped,VerifyTransceiversTemperature test is not supported on vEOS-lab,Verifies if all the transceivers are operating at an acceptable temperature.,Hardware
+LEAF1,VerifyIllegalLACP,success,,Verifies there are no illegal LACP packets in port channels.,Interfaces
+LEAF1,VerifyInterfaceErrDisabled,success,,Verifies there are no interfaces in the errdisabled state.,Interfaces
+LEAF1,VerifyInterfaceErrors,success,,Verifies that the interfaces error counters are equal to zero.,Interfaces
+LEAF1,VerifyInterfaceUtilization,success,,Verifies that the utilization of interfaces is below a certain threshold.,Interfaces
+LEAF1,VerifyInterfacesStatus,failure,Port-Channel1 - Not configured - Port-Channel47 - Not configured - Vlan4094 - Not configured,Verifies the operational states of specified interfaces to ensure they match expected configurations.,Interfaces
+LEAF1,VerifyPortChannels,success,,Verifies there are no inactive ports in port channels.,Interfaces
+LEAF1,VerifyStormControlDrops,skipped,VerifyStormControlDrops test is not supported on vEOS-lab,Verifies there are no interface storm-control drop counters.,Interfaces
+LEAF1,VerifyMlagInterfaces,skipped,MLAG is disabled,Verifies there are no inactive or active-partial MLAG ports.,MLAG
+LEAF1,VerifyMlagStatus,skipped,MLAG is disabled,Verifies the health status of the MLAG configuration.,MLAG
+LEAF1,VerifyRoutingProtocolModel,success,,Verifies the configured routing protocol model.,Routing
+LEAF1,VerifySTPCounters,success,,Verifies there is no errors in STP BPDU packets.,STP
+LEAF1,VerifyAgentLogs,success,,Verifies there are no agent crash reports.,System
+LEAF1,VerifyCoredump,success,,Verifies there are no core dump files.,System
+LEAF1,VerifyFileSystemUtilization,success,,Verifies that no partition is utilizing more than 75% of its disk space.,System
+LEAF1,VerifyMaintenance,success,,Verifies that the device is not currently under or entering maintenance.,System
+LEAF1,VerifyMemoryUtilization,success,,Verifies whether the memory utilization is below 75%.,System
+LEAF1,VerifyNTP,failure,NTP status mismatch - Expected: synchronised Actual: NTP is disabled.,Verifies if NTP is synchronised.,System
+LEAF1,VerifyReloadCause,success,,Verifies the last reload cause of the device.,System
+LEAF2,VerifyRunningConfigDiffs,failure,"--- flash:/startup-config
++++ system:/running-config
+@@ -5,6 +5,7 @@
+ no aaa root
+ no username admin
+ !
++username ansible privilege 15 secret sha512 $6$EDpV5/LoblwL3J2P$.4FN6KwTVtLB3Wxr66.MEQSaHbGB.o.qS9H/bXhEfTx1hS00/AzfFb96/V631nc.OQlFO2ubVlp93xnvjvaEA.
+ username cvpadmin secret sha512 $6$QNjCMqwAKPnM7cFr$M4AUIDZc4htGGgX.mqeerWLCab1W3uUGOA63gjq932yLCj12atJjwDqluq7HnJqI9CER6AqJWoJcOcxlafPt8/
+ username cwomble secret *
+ username cwomble ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOZFQIhHNghkuJryYiNyFUbkVPyGH2tU1gFuoJ/wDDg420VY9tb1OQn7k+XoDaVWWoEoOek07sJzns0Yy7WYUhgHP3T8Q3qW2DRjRDCUgUXnt9iW9N/axh4U4OP71UbWJNw3D6b5JE4EWt56okFcR6eSAyyKoYZvUAiCX1oUGVbRDz0cTNTbbnYHXp8DFBM/3fLNrO7Ntif+1ZtY8IQoZoDaOZpQLqTt40QGBAJgyXy0xP3urSaSJP2alSZP0g2IY9WebHaJAKnzP+SCuU4pMpcWYE3EoevYB6RLy12WylXq7Ht8sy2cjB9HH19BM4lNvRJ7ArjsL8enBP4OdqdyCH/SfLy6YrQ2EFidNpxnGBNVxIA7lkK82jLGFiqKJJNapZW4nRljT+KVMFEh/NTDP61wYmUPCR331+e3TiKsapwcIN/Q1+20WBVf11RseChjLqZzu54y9PDw/MA8ra8mPbuenhNJ6Xw8nkZbeUr+o/jZHwTP0sTLFyv4uJKvOACBc=
+",Verifies there is no difference between the running-config and the startup-config.,Configuration
+LEAF2,VerifyZeroTouch,success,,Verifies ZeroTouch is disabled.,Configuration
+LEAF2,VerifyLLDPNeighbors,success,,Verifies the connection status of the specified LLDP (Link Layer Discovery Protocol) neighbors.,Connectivity
+LEAF2,VerifyEnvironmentCooling,skipped,VerifyEnvironmentCooling test is not supported on vEOS-lab,Verifies the status of power supply fans and all fan trays.,Hardware
+LEAF2,VerifyEnvironmentPower,skipped,VerifyEnvironmentPower test is not supported on vEOS-lab,Verifies the power supplies state and input voltage.,Hardware
+LEAF2,VerifyEnvironmentSystemCooling,skipped,VerifyEnvironmentSystemCooling test is not supported on vEOS-lab,Verifies the device's system cooling status.,Hardware
+LEAF2,VerifyTemperature,skipped,VerifyTemperature test is not supported on vEOS-lab,Verifies if the device temperature is within acceptable limits.,Hardware
+LEAF2,VerifyTransceiversTemperature,skipped,VerifyTransceiversTemperature test is not supported on vEOS-lab,Verifies if all the transceivers are operating at an acceptable temperature.,Hardware
+LEAF2,VerifyIllegalLACP,success,,Verifies there are no illegal LACP packets in port channels.,Interfaces
+LEAF2,VerifyInterfaceErrDisabled,success,,Verifies there are no interfaces in the errdisabled state.,Interfaces
+LEAF2,VerifyInterfaceErrors,success,,Verifies that the interfaces error counters are equal to zero.,Interfaces
+LEAF2,VerifyInterfaceUtilization,success,,Verifies that the utilization of interfaces is below a certain threshold.,Interfaces
+LEAF2,VerifyInterfacesStatus,failure,Port-Channel1 - Not configured - Port-Channel47 - Not configured - Vlan4094 - Not configured,Verifies the operational states of specified interfaces to ensure they match expected configurations.,Interfaces
+LEAF2,VerifyPortChannels,success,,Verifies there are no inactive ports in port channels.,Interfaces
+LEAF2,VerifyStormControlDrops,skipped,VerifyStormControlDrops test is not supported on vEOS-lab,Verifies there are no interface storm-control drop counters.,Interfaces
+LEAF2,VerifyMlagInterfaces,skipped,MLAG is disabled,Verifies there are no inactive or active-partial MLAG ports.,MLAG
+LEAF2,VerifyMlagStatus,skipped,MLAG is disabled,Verifies the health status of the MLAG configuration.,MLAG
+LEAF2,VerifyRoutingProtocolModel,success,,Verifies the configured routing protocol model.,Routing
+LEAF2,VerifySTPCounters,success,,Verifies there is no errors in STP BPDU packets.,STP
+LEAF2,VerifyAgentLogs,success,,Verifies there are no agent crash reports.,System
+LEAF2,VerifyCoredump,success,,Verifies there are no core dump files.,System
+LEAF2,VerifyFileSystemUtilization,success,,Verifies that no partition is utilizing more than 75% of its disk space.,System
+LEAF2,VerifyMaintenance,success,,Verifies that the device is not currently under or entering maintenance.,System
+LEAF2,VerifyMemoryUtilization,success,,Verifies whether the memory utilization is below 75%.,System
+LEAF2,VerifyNTP,failure,NTP status mismatch - Expected: synchronised Actual: NTP is disabled.,Verifies if NTP is synchronised.,System
+LEAF2,VerifyReloadCause,success,,Verifies the last reload cause of the device.,System
+LEAF3,VerifyRunningConfigDiffs,failure,"--- flash:/startup-config
++++ system:/running-config
+@@ -5,6 +5,7 @@
+ no aaa root
+ no username admin
+ !
++username ansible privilege 15 secret sha512 $6$LTw4ltCzcaqVhumg$wOl3SufpK9iFHW7YnhHinT5UtWxwWU/gKfjUyKEmFYYf5CgxdZiihuFfPR48kwZ4mOXf8vZ/7/XZR9URrom7k0
+ username cvpadmin secret sha512 $6$2yeVIFGoz9JQi0kw$f5lH3NS6jA5PWs.a1Zn7b4XW7N4ekFV.uVAWcFxnPvCcz19YVFMV7R74XtSasSpz2tVeSEmzhmmfVpOEqD2DK/
+ username cwomble secret *
+ username cwomble ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOZFQIhHNghkuJryYiNyFUbkVPyGH2tU1gFuoJ/wDDg420VY9tb1OQn7k+XoDaVWWoEoOek07sJzns0Yy7WYUhgHP3T8Q3qW2DRjRDCUgUXnt9iW9N/axh4U4OP71UbWJNw3D6b5JE4EWt56okFcR6eSAyyKoYZvUAiCX1oUGVbRDz0cTNTbbnYHXp8DFBM/3fLNrO7Ntif+1ZtY8IQoZoDaOZpQLqTt40QGBAJgyXy0xP3urSaSJP2alSZP0g2IY9WebHaJAKnzP+SCuU4pMpcWYE3EoevYB6RLy12WylXq7Ht8sy2cjB9HH19BM4lNvRJ7ArjsL8enBP4OdqdyCH/SfLy6YrQ2EFidNpxnGBNVxIA7lkK82jLGFiqKJJNapZW4nRljT+KVMFEh/NTDP61wYmUPCR331+e3TiKsapwcIN/Q1+20WBVf11RseChjLqZzu54y9PDw/MA8ra8mPbuenhNJ6Xw8nkZbeUr+o/jZHwTP0sTLFyv4uJKvOACBc=
+",Verifies there is no difference between the running-config and the startup-config.,Configuration
+LEAF3,VerifyZeroTouch,success,,Verifies ZeroTouch is disabled.,Configuration
+LEAF3,VerifyLLDPNeighbors,success,,Verifies the connection status of the specified LLDP (Link Layer Discovery Protocol) neighbors.,Connectivity
+LEAF3,VerifyEnvironmentCooling,skipped,VerifyEnvironmentCooling test is not supported on vEOS-lab,Verifies the status of power supply fans and all fan trays.,Hardware
+LEAF3,VerifyEnvironmentPower,skipped,VerifyEnvironmentPower test is not supported on vEOS-lab,Verifies the power supplies state and input voltage.,Hardware
+LEAF3,VerifyEnvironmentSystemCooling,skipped,VerifyEnvironmentSystemCooling test is not supported on vEOS-lab,Verifies the device's system cooling status.,Hardware
+LEAF3,VerifyTemperature,skipped,VerifyTemperature test is not supported on vEOS-lab,Verifies if the device temperature is within acceptable limits.,Hardware
+LEAF3,VerifyTransceiversTemperature,skipped,VerifyTransceiversTemperature test is not supported on vEOS-lab,Verifies if all the transceivers are operating at an acceptable temperature.,Hardware
+LEAF3,VerifyIllegalLACP,success,,Verifies there are no illegal LACP packets in port channels.,Interfaces
+LEAF3,VerifyInterfaceErrDisabled,success,,Verifies there are no interfaces in the errdisabled state.,Interfaces
+LEAF3,VerifyInterfaceErrors,success,,Verifies that the interfaces error counters are equal to zero.,Interfaces
+LEAF3,VerifyInterfaceUtilization,success,,Verifies that the utilization of interfaces is below a certain threshold.,Interfaces
+LEAF3,VerifyInterfacesStatus,failure,Port-Channel1 - Not configured - Port-Channel47 - Not configured - Vlan4094 - Not configured,Verifies the operational states of specified interfaces to ensure they match expected configurations.,Interfaces
+LEAF3,VerifyPortChannels,success,,Verifies there are no inactive ports in port channels.,Interfaces
+LEAF3,VerifyStormControlDrops,skipped,VerifyStormControlDrops test is not supported on vEOS-lab,Verifies there are no interface storm-control drop counters.,Interfaces
+LEAF3,VerifyMlagInterfaces,skipped,MLAG is disabled,Verifies there are no inactive or active-partial MLAG ports.,MLAG
+LEAF3,VerifyMlagStatus,skipped,MLAG is disabled,Verifies the health status of the MLAG configuration.,MLAG
+LEAF3,VerifyRoutingProtocolModel,success,,Verifies the configured routing protocol model.,Routing
+LEAF3,VerifySTPCounters,success,,Verifies there is no errors in STP BPDU packets.,STP
+LEAF3,VerifyAgentLogs,success,,Verifies there are no agent crash reports.,System
+LEAF3,VerifyCoredump,success,,Verifies there are no core dump files.,System
+LEAF3,VerifyFileSystemUtilization,success,,Verifies that no partition is utilizing more than 75% of its disk space.,System
+LEAF3,VerifyMaintenance,success,,Verifies that the device is not currently under or entering maintenance.,System
+LEAF3,VerifyMemoryUtilization,success,,Verifies whether the memory utilization is below 75%.,System
+LEAF3,VerifyNTP,failure,NTP status mismatch - Expected: synchronised Actual: NTP is disabled.,Verifies if NTP is synchronised.,System
+LEAF3,VerifyReloadCause,success,,Verifies the last reload cause of the device.,System
+LEAF4,VerifyRunningConfigDiffs,failure,"--- flash:/startup-config
++++ system:/running-config
+@@ -5,6 +5,7 @@
+ no aaa root
+ no username admin
+ !
++username ansible privilege 15 secret sha512 $6$DO3VUlt4nASEhb/g$sIGWPaLGVGT9ZV5OsV0zRJXGxr.cLDN9V.hEC4WDNTkFcEXwHNQ1VbEkc1A29QcQIQvbuegY8Rd12qqqBEchY0
+ username cvpadmin secret sha512 $6$EWzT5DQlGAWQ6SKh$47PL9u9PA0VjhsjXx9NvoJ1Cb8VcrXTWYjfJfjkJM.yHNt0NEJD6DIeXRjoRjs17FQVuDQCI4Um5bCJrk8pIc0
+ username cwomble secret *
+ username cwomble ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOZFQIhHNghkuJryYiNyFUbkVPyGH2tU1gFuoJ/wDDg420VY9tb1OQn7k+XoDaVWWoEoOek07sJzns0Yy7WYUhgHP3T8Q3qW2DRjRDCUgUXnt9iW9N/axh4U4OP71UbWJNw3D6b5JE4EWt56okFcR6eSAyyKoYZvUAiCX1oUGVbRDz0cTNTbbnYHXp8DFBM/3fLNrO7Ntif+1ZtY8IQoZoDaOZpQLqTt40QGBAJgyXy0xP3urSaSJP2alSZP0g2IY9WebHaJAKnzP+SCuU4pMpcWYE3EoevYB6RLy12WylXq7Ht8sy2cjB9HH19BM4lNvRJ7ArjsL8enBP4OdqdyCH/SfLy6YrQ2EFidNpxnGBNVxIA7lkK82jLGFiqKJJNapZW4nRljT+KVMFEh/NTDP61wYmUPCR331+e3TiKsapwcIN/Q1+20WBVf11RseChjLqZzu54y9PDw/MA8ra8mPbuenhNJ6Xw8nkZbeUr+o/jZHwTP0sTLFyv4uJKvOACBc=
+",Verifies there is no difference between the running-config and the startup-config.,Configuration
+LEAF4,VerifyZeroTouch,success,,Verifies ZeroTouch is disabled.,Configuration
+LEAF4,VerifyLLDPNeighbors,success,,Verifies the connection status of the specified LLDP (Link Layer Discovery Protocol) neighbors.,Connectivity
+LEAF4,VerifyEnvironmentCooling,skipped,VerifyEnvironmentCooling test is not supported on vEOS-lab,Verifies the status of power supply fans and all fan trays.,Hardware
+LEAF4,VerifyEnvironmentPower,skipped,VerifyEnvironmentPower test is not supported on vEOS-lab,Verifies the power supplies state and input voltage.,Hardware
+LEAF4,VerifyEnvironmentSystemCooling,skipped,VerifyEnvironmentSystemCooling test is not supported on vEOS-lab,Verifies the device's system cooling status.,Hardware
+LEAF4,VerifyTemperature,skipped,VerifyTemperature test is not supported on vEOS-lab,Verifies if the device temperature is within acceptable limits.,Hardware
+LEAF4,VerifyTransceiversTemperature,skipped,VerifyTransceiversTemperature test is not supported on vEOS-lab,Verifies if all the transceivers are operating at an acceptable temperature.,Hardware
+LEAF4,VerifyIllegalLACP,success,,Verifies there are no illegal LACP packets in port channels.,Interfaces
+LEAF4,VerifyInterfaceErrDisabled,success,,Verifies there are no interfaces in the errdisabled state.,Interfaces
+LEAF4,VerifyInterfaceErrors,success,,Verifies that the interfaces error counters are equal to zero.,Interfaces
+LEAF4,VerifyInterfaceUtilization,success,,Verifies that the utilization of interfaces is below a certain threshold.,Interfaces
+LEAF4,VerifyInterfacesStatus,failure,Port-Channel1 - Not configured - Port-Channel47 - Not configured - Vlan4094 - Not configured,Verifies the operational states of specified interfaces to ensure they match expected configurations.,Interfaces
+LEAF4,VerifyPortChannels,success,,Verifies there are no inactive ports in port channels.,Interfaces
+LEAF4,VerifyStormControlDrops,skipped,VerifyStormControlDrops test is not supported on vEOS-lab,Verifies there are no interface storm-control drop counters.,Interfaces
+LEAF4,VerifyMlagInterfaces,skipped,MLAG is disabled,Verifies there are no inactive or active-partial MLAG ports.,MLAG
+LEAF4,VerifyMlagStatus,skipped,MLAG is disabled,Verifies the health status of the MLAG configuration.,MLAG
+LEAF4,VerifyRoutingProtocolModel,success,,Verifies the configured routing protocol model.,Routing
+LEAF4,VerifySTPCounters,success,,Verifies there is no errors in STP BPDU packets.,STP
+LEAF4,VerifyAgentLogs,success,,Verifies there are no agent crash reports.,System
+LEAF4,VerifyCoredump,success,,Verifies there are no core dump files.,System
+LEAF4,VerifyFileSystemUtilization,success,,Verifies that no partition is utilizing more than 75% of its disk space.,System
+LEAF4,VerifyMaintenance,success,,Verifies that the device is not currently under or entering maintenance.,System
+LEAF4,VerifyMemoryUtilization,success,,Verifies whether the memory utilization is below 75%.,System
+LEAF4,VerifyNTP,failure,NTP status mismatch - Expected: synchronised Actual: NTP is disabled.,Verifies if NTP is synchronised.,System
+LEAF4,VerifyReloadCause,success,,Verifies the last reload cause of the device.,System
+SPINE1,VerifyRunningConfigDiffs,failure,"--- flash:/startup-config
++++ system:/running-config
+@@ -5,6 +5,7 @@
+ no aaa root
+ no username admin
+ !
++username ansible privilege 15 secret sha512 $6$HgZcFmkM0dndNkRD$YqihwO4XXmOQk/wCqmGh5ZdkWP12Z02EUH8pmw2K5WWfCaHTcZWnRBAgJjekctFrjnMuVGpt/HTqLG3AqLuuK/
+ username cvpadmin secret sha512 $6$FnRCovTes0XV.U2C$Jeh7h/f/WnTc8ER0/a7rkeHl40.WdzZ3UB7IMrejZGjBhm.mze.H6Bgx1FPVIgNZKIAOgQc/CavnFdl.l5ww6.
+ username cwomble secret *
+ username cwomble ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOZFQIhHNghkuJryYiNyFUbkVPyGH2tU1gFuoJ/wDDg420VY9tb1OQn7k+XoDaVWWoEoOek07sJzns0Yy7WYUhgHP3T8Q3qW2DRjRDCUgUXnt9iW9N/axh4U4OP71UbWJNw3D6b5JE4EWt56okFcR6eSAyyKoYZvUAiCX1oUGVbRDz0cTNTbbnYHXp8DFBM/3fLNrO7Ntif+1ZtY8IQoZoDaOZpQLqTt40QGBAJgyXy0xP3urSaSJP2alSZP0g2IY9WebHaJAKnzP+SCuU4pMpcWYE3EoevYB6RLy12WylXq7Ht8sy2cjB9HH19BM4lNvRJ7ArjsL8enBP4OdqdyCH/SfLy6YrQ2EFidNpxnGBNVxIA7lkK82jLGFiqKJJNapZW4nRljT+KVMFEh/NTDP61wYmUPCR331+e3TiKsapwcIN/Q1+20WBVf11RseChjLqZzu54y9PDw/MA8ra8mPbuenhNJ6Xw8nkZbeUr+o/jZHwTP0sTLFyv4uJKvOACBc=
+",Verifies there is no difference between the running-config and the startup-config.,Configuration
+SPINE1,VerifyZeroTouch,success,,Verifies ZeroTouch is disabled.,Configuration
+SPINE1,VerifyLLDPNeighbors,success,,Verifies the connection status of the specified LLDP (Link Layer Discovery Protocol) neighbors.,Connectivity
+SPINE1,VerifyEnvironmentCooling,skipped,VerifyEnvironmentCooling test is not supported on vEOS-lab,Verifies the status of power supply fans and all fan trays.,Hardware
+SPINE1,VerifyEnvironmentPower,skipped,VerifyEnvironmentPower test is not supported on vEOS-lab,Verifies the power supplies state and input voltage.,Hardware
+SPINE1,VerifyEnvironmentSystemCooling,skipped,VerifyEnvironmentSystemCooling test is not supported on vEOS-lab,Verifies the device's system cooling status.,Hardware
+SPINE1,VerifyTemperature,skipped,VerifyTemperature test is not supported on vEOS-lab,Verifies if the device temperature is within acceptable limits.,Hardware
+SPINE1,VerifyTransceiversTemperature,skipped,VerifyTransceiversTemperature test is not supported on vEOS-lab,Verifies if all the transceivers are operating at an acceptable temperature.,Hardware
+SPINE1,VerifyIllegalLACP,success,,Verifies there are no illegal LACP packets in port channels.,Interfaces
+SPINE1,VerifyInterfaceErrDisabled,success,,Verifies there are no interfaces in the errdisabled state.,Interfaces
+SPINE1,VerifyInterfaceErrors,success,,Verifies that the interfaces error counters are equal to zero.,Interfaces
+SPINE1,VerifyInterfaceUtilization,success,,Verifies that the utilization of interfaces is below a certain threshold.,Interfaces
+SPINE1,VerifyInterfacesStatus,failure,Port-Channel1 - Not configured - Port-Channel3 - Not configured - Port-Channel5 - Not configured - Port-Channel47 - Not configured - Vlan4094 - Not configured,Verifies the operational states of specified interfaces to ensure they match expected configurations.,Interfaces
+SPINE1,VerifyPortChannels,success,,Verifies there are no inactive ports in port channels.,Interfaces
+SPINE1,VerifyStormControlDrops,skipped,VerifyStormControlDrops test is not supported on vEOS-lab,Verifies there are no interface storm-control drop counters.,Interfaces
+SPINE1,VerifyMlagInterfaces,skipped,MLAG is disabled,Verifies there are no inactive or active-partial MLAG ports.,MLAG
+SPINE1,VerifyMlagStatus,skipped,MLAG is disabled,Verifies the health status of the MLAG configuration.,MLAG
+SPINE1,VerifyRoutingProtocolModel,success,,Verifies the configured routing protocol model.,Routing
+SPINE1,VerifySTPCounters,success,,Verifies there is no errors in STP BPDU packets.,STP
+SPINE1,VerifyAgentLogs,success,,Verifies there are no agent crash reports.,System
+SPINE1,VerifyCoredump,success,,Verifies there are no core dump files.,System
+SPINE1,VerifyFileSystemUtilization,success,,Verifies that no partition is utilizing more than 75% of its disk space.,System
+SPINE1,VerifyMaintenance,success,,Verifies that the device is not currently under or entering maintenance.,System
+SPINE1,VerifyMemoryUtilization,success,,Verifies whether the memory utilization is below 75%.,System
+SPINE1,VerifyNTP,failure,NTP status mismatch - Expected: synchronised Actual: NTP is disabled.,Verifies if NTP is synchronised.,System
+SPINE1,VerifyReloadCause,success,,Verifies the last reload cause of the device.,System
+SPINE2,VerifyRunningConfigDiffs,failure,"--- flash:/startup-config
++++ system:/running-config
+@@ -5,6 +5,7 @@
+ no aaa root
+ no username admin
+ !
++username ansible privilege 15 secret sha512 $6$nG6in1XE7c37QcJQ$dz09ytu1TB61P834AieupxdpncnUvYXdKZj.zJN0g7x3nG1UC66reTBR/beK8tTViANSrIwKvaVt8bUBBVlSQ.
+ username cvpadmin secret sha512 $6$lSuTHxUKqd5xhORu$oTf.zA8S0Y.OAJqhh16iwxQBINex3.qcpnRTH1SJA9Q.N7MvDNq8dl3h0O3y6k1DJDfWFWclOhtPWeVK/k5OW/
+ username cwomble secret *
+ username cwomble ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOZFQIhHNghkuJryYiNyFUbkVPyGH2tU1gFuoJ/wDDg420VY9tb1OQn7k+XoDaVWWoEoOek07sJzns0Yy7WYUhgHP3T8Q3qW2DRjRDCUgUXnt9iW9N/axh4U4OP71UbWJNw3D6b5JE4EWt56okFcR6eSAyyKoYZvUAiCX1oUGVbRDz0cTNTbbnYHXp8DFBM/3fLNrO7Ntif+1ZtY8IQoZoDaOZpQLqTt40QGBAJgyXy0xP3urSaSJP2alSZP0g2IY9WebHaJAKnzP+SCuU4pMpcWYE3EoevYB6RLy12WylXq7Ht8sy2cjB9HH19BM4lNvRJ7ArjsL8enBP4OdqdyCH/SfLy6YrQ2EFidNpxnGBNVxIA7lkK82jLGFiqKJJNapZW4nRljT+KVMFEh/NTDP61wYmUPCR331+e3TiKsapwcIN/Q1+20WBVf11RseChjLqZzu54y9PDw/MA8ra8mPbuenhNJ6Xw8nkZbeUr+o/jZHwTP0sTLFyv4uJKvOACBc=
+",Verifies there is no difference between the running-config and the startup-config.,Configuration
+SPINE2,VerifyZeroTouch,success,,Verifies ZeroTouch is disabled.,Configuration
+SPINE2,VerifyLLDPNeighbors,success,,Verifies the connection status of the specified LLDP (Link Layer Discovery Protocol) neighbors.,Connectivity
+SPINE2,VerifyEnvironmentCooling,skipped,VerifyEnvironmentCooling test is not supported on vEOS-lab,Verifies the status of power supply fans and all fan trays.,Hardware
+SPINE2,VerifyEnvironmentPower,skipped,VerifyEnvironmentPower test is not supported on vEOS-lab,Verifies the power supplies state and input voltage.,Hardware
+SPINE2,VerifyEnvironmentSystemCooling,skipped,VerifyEnvironmentSystemCooling test is not supported on vEOS-lab,Verifies the device's system cooling status.,Hardware
+SPINE2,VerifyTemperature,skipped,VerifyTemperature test is not supported on vEOS-lab,Verifies if the device temperature is within acceptable limits.,Hardware
+SPINE2,VerifyTransceiversTemperature,skipped,VerifyTransceiversTemperature test is not supported on vEOS-lab,Verifies if all the transceivers are operating at an acceptable temperature.,Hardware
+SPINE2,VerifyIllegalLACP,success,,Verifies there are no illegal LACP packets in port channels.,Interfaces
+SPINE2,VerifyInterfaceErrDisabled,success,,Verifies there are no interfaces in the errdisabled state.,Interfaces
+SPINE2,VerifyInterfaceErrors,success,,Verifies that the interfaces error counters are equal to zero.,Interfaces
+SPINE2,VerifyInterfaceUtilization,success,,Verifies that the utilization of interfaces is below a certain threshold.,Interfaces
+SPINE2,VerifyInterfacesStatus,failure,Port-Channel1 - Not configured - Port-Channel3 - Not configured - Port-Channel5 - Not configured - Port-Channel47 - Not configured - Vlan4094 - Not configured,Verifies the operational states of specified interfaces to ensure they match expected configurations.,Interfaces
+SPINE2,VerifyPortChannels,success,,Verifies there are no inactive ports in port channels.,Interfaces
+SPINE2,VerifyStormControlDrops,skipped,VerifyStormControlDrops test is not supported on vEOS-lab,Verifies there are no interface storm-control drop counters.,Interfaces
+SPINE2,VerifyMlagInterfaces,skipped,MLAG is disabled,Verifies there are no inactive or active-partial MLAG ports.,MLAG
+SPINE2,VerifyMlagStatus,skipped,MLAG is disabled,Verifies the health status of the MLAG configuration.,MLAG
+SPINE2,VerifyRoutingProtocolModel,success,,Verifies the configured routing protocol model.,Routing
+SPINE2,VerifySTPCounters,success,,Verifies there is no errors in STP BPDU packets.,STP
+SPINE2,VerifyAgentLogs,success,,Verifies there are no agent crash reports.,System
+SPINE2,VerifyCoredump,success,,Verifies there are no core dump files.,System
+SPINE2,VerifyFileSystemUtilization,success,,Verifies that no partition is utilizing more than 75% of its disk space.,System
+SPINE2,VerifyMaintenance,success,,Verifies that the device is not currently under or entering maintenance.,System
+SPINE2,VerifyMemoryUtilization,success,,Verifies whether the memory utilization is below 75%.,System
+SPINE2,VerifyNTP,failure,NTP status mismatch - Expected: synchronised Actual: NTP is disabled.,Verifies if NTP is synchronised.,System
+SPINE2,VerifyReloadCause,success,,Verifies the last reload cause of the device.,System
