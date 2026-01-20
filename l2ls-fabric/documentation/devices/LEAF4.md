@@ -38,6 +38,8 @@
   - [Static Routes](#static-routes)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
+- [802.1X Port Security](#8021x-port-security)
+  - [802.1X Summary](#8021x-summary)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
@@ -235,7 +237,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| RACK2 | Vlan4094 | 192.168.0.4 | Port-Channel47 |
+| HQ_FLOOR2_RACK | Vlan4094 | 192.168.0.4 | Port-Channel47 |
 
 Dual primary detection is disabled.
 
@@ -244,7 +246,7 @@ Dual primary detection is disabled.
 ```eos
 !
 mlag configuration
-   domain-id RACK2
+   domain-id HQ_FLOOR2_RACK
    local-interface Vlan4094
    peer-address 192.168.0.4
    peer-link Port-Channel47
@@ -298,19 +300,27 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 10 | BLUE-NET | - |
-| 30 | ORANGE-NET | - |
+| 20 | HQ2-CORP-USERS | - |
+| 21 | HQ2-VOICE | - |
+| 22 | HQ2-CONF-AV | - |
+| 99 | CAMPUS-GUEST-WIFI | - |
 | 4094 | MLAG | MLAG |
 
 ### VLANs Device Configuration
 
 ```eos
 !
-vlan 10
-   name BLUE-NET
+vlan 20
+   name HQ2-CORP-USERS
 !
-vlan 30
-   name ORANGE-NET
+vlan 21
+   name HQ2-VOICE
+!
+vlan 22
+   name HQ2-CONF-AV
+!
+vlan 99
+   name CAMPUS-GUEST-WIFI
 !
 vlan 4094
    name MLAG
@@ -327,9 +337,9 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | L2_SPINE1_Ethernet4 | *trunk | *10,30 | *- | *- | 1 |
-| Ethernet2 | L2_SPINE2_Ethernet4 | *trunk | *10,30 | *- | *- | 1 |
-| Ethernet3 | SERVER_Host2_Eth1 | access | 30 | - | - | - |
+| Ethernet1 | L2_SPINE1_Ethernet4 | *trunk | *20-22,99 | *- | *- | 1 |
+| Ethernet2 | L2_SPINE2_Ethernet4 | *trunk | *20-22,99 | *- | *- | 1 |
+| Ethernet3 | SERVER_Host2_Eth1 | trunk phone | - | - | - | - |
 | Ethernet47 | MLAG_LEAF3_Ethernet47 | *trunk | *- | *- | *MLAG | 47 |
 | Ethernet48 | MLAG_LEAF3_Ethernet48 | *trunk | *- | *- | *MLAG | 47 |
 
@@ -352,10 +362,18 @@ interface Ethernet2
 interface Ethernet3
    description SERVER_Host2_Eth1
    no shutdown
-   switchport access vlan 30
-   switchport mode access
+   switchport mode trunk phone
    switchport
    spanning-tree portfast
+   spanning-tree bpduguard enable
+   dot1x pae authenticator
+   dot1x reauthentication
+   dot1x port-control auto
+   dot1x host-mode multi-host authenticated
+   dot1x mac based authentication
+   dot1x timeout tx-period 3
+   dot1x timeout reauth-period server
+   dot1x reauthorization request limit 3
 !
 interface Ethernet47
    description MLAG_LEAF3_Ethernet47
@@ -376,7 +394,7 @@ interface Ethernet48
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | L2_SPINES_Port-Channel3 | trunk | 10,30 | - | - | - | - | 1 | - |
+| Port-Channel1 | L2_SPINES_Port-Channel3 | trunk | 20-22,99 | - | - | - | - | 1 | - |
 | Port-Channel47 | MLAG_LEAF3_Port-Channel47 | trunk | - | - | MLAG | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
@@ -386,7 +404,7 @@ interface Ethernet48
 interface Port-Channel1
    description L2_SPINES_Port-Channel3
    no shutdown
-   switchport trunk allowed vlan 10,30
+   switchport trunk allowed vlan 20-22,99
    switchport mode trunk
    switchport
    mlag 1
@@ -489,6 +507,16 @@ ip route vrf MGMT 0.0.0.0/0 172.16.100.1
 
 ```eos
 ```
+
+## 802.1X Port Security
+
+### 802.1X Summary
+
+#### 802.1X Interfaces
+
+| Interface | PAE Mode | Supplicant Profile | State | Phone Force Authorized | Reauthentication | Auth Failure Action | Host Mode | Mac Based Auth | Eapol |
+| --------- | -------- | ------------------ | ----- | ---------------------- | ---------------- | ------------------- | --------- | -------------- | ----- |
+| Ethernet3 | authenticator | - | auto | - | True | - | multi-host | True | - |
 
 ## VRF Instances
 

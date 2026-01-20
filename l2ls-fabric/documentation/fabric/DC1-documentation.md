@@ -100,25 +100,26 @@
 
 | Name | Port | Fabric Device | Fabric Port | Description | Shutdown | Mode | Access VLAN | Trunk Allowed VLANs | Profile |
 | ---- | ---- | ------------- | ------------| ----------- | -------- | ---- | ----------- | ------------------- | ------- |
-| FIREWALL | Eth1 | SPINE1 | Ethernet5 | FIREWALL_FIREWALL_Eth1 | False | trunk | - | 10,20,30 | PP-FIREWALL |
-| FIREWALL | Eth2 | SPINE2 | Ethernet5 | FIREWALL_FIREWALL_Eth2 | False | trunk | - | 10,20,30 | PP-FIREWALL |
+| FIREWALL | Eth1 | SPINE1 | Ethernet5 | FIREWALL_FIREWALL_Eth1 | False | trunk | - | 10,11,12,20,21,22,99 | PP-FIREWALL |
+| FIREWALL | Eth2 | SPINE2 | Ethernet5 | FIREWALL_FIREWALL_Eth2 | False | trunk | - | 10,11,12,20,21,22,99 | PP-FIREWALL |
 
 ### Servers
 
 | Name | Port | Fabric Device | Fabric Port | Description | Shutdown | Mode | Access VLAN | Trunk Allowed VLANs | Profile |
 | ---- | ---- | ------------- | ------------| ----------- | -------- | ---- | ----------- | ------------------- | ------- |
-| Host2 | Eth1 | LEAF4 | Ethernet3 | SERVER_Host2_Eth1 | False | access | 30 | - | PP-ORANGE |
+| Host2 | Eth1 | LEAF4 | Ethernet3 | SERVER_Host2_Eth1 | False | trunk phone | - | - | PP-DOT1X |
 | HostA | Eth1 | LEAF1 | Ethernet3 | SERVER_HostA_Eth1 | False | - | - | - | PP-DEFAULTS |
-| HostB | Eth1 | LEAF2 | Ethernet3 | SERVER_HostB_Eth1 | False | access | 20 | - | PP-GREEN |
-| HostC | Eth1 | LEAF3 | Ethernet3 | SERVER_HostC_Eth1 | False | access | 10 | - | PP-BLUE |
+| HostB | Eth1 | LEAF2 | Ethernet3 | SERVER_HostB_Eth1 | False | access | 10 | - | PP-HQ-F1-USER |
+| HostC | Eth1 | LEAF3 | Ethernet3 | SERVER_HostC_Eth1 | False | access | 20 | - | PP-HQ-F2-USER |
 
 ### Port Profiles
 
 | Profile Name | Parent Profile |
 | ------------ | -------------- |
-| PP-BLUE | PP-DEFAULTS |
+| PP-CAMPUS-GUEST | PP-DEFAULTS |
 | PP-DEFAULTS | - |
 | PP-DOT1X | - |
 | PP-FIREWALL | - |
-| PP-GREEN | PP-DEFAULTS |
-| PP-ORANGE | PP-DEFAULTS |
+| PP-HQ-F1-USER | PP-DEFAULTS |
+| PP-HQ-F1-VOICE | PP-DEFAULTS |
+| PP-HQ-F2-USER | PP-DEFAULTS |

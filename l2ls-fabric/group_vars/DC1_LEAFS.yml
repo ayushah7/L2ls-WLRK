@@ -15,10 +15,10 @@ l2leaf: # dynamic_key: node_type
     spanning_tree_priority: 16384
 
   node_groups:
-    - group: RACK1
+    - group: HQ_FLOOR1_RACK
       mlag: true
       filter:
-        tags: [allzone, bluezone, greenzone]
+        tags: [hq_floor1, campus_all]
       nodes:
         - name: LEAF1
           id: 1
@@ -28,10 +28,10 @@ l2leaf: # dynamic_key: node_type
           id: 2
           mgmt_ip: 192.168.0.15/24
           uplink_switch_interfaces: [Ethernet2, Ethernet2]
-    - group: RACK2
+    - group: HQ_FLOOR2_RACK
       mlag: true
       filter:
-        tags: [allzone, bluezone, orangezone]
+        tags: [hq_floor2, campus_all]
       nodes:
         - name: LEAF3
           id: 3

@@ -73,11 +73,11 @@ ethernet_interfaces:
   peer: HostB
   peer_interface: Eth1
   peer_type: server
-  port_profile: PP-GREEN
+  port_profile: PP-HQ-F1-USER
   switchport:
     enabled: true
     mode: access
-    access_vlan: 20
+    access_vlan: 10
 hostname: LEAF2
 ip_domain_lookup:
   source_interfaces:
@@ -116,7 +116,7 @@ metadata:
   platform: vEOSLab
   fabric_name: DC1
 mlag_configuration:
-  domain_id: RACK1
+  domain_id: HQ_FLOOR1_RACK
   local_interface: Vlan4094
   peer_address: 192.168.0.0
   peer_link: Port-Channel47
@@ -150,7 +150,7 @@ port_channel_interfaces:
     enabled: true
     mode: trunk
     trunk:
-      allowed_vlan: 10,20
+      allowed_vlan: 10-12,99
 service_routing_protocols_model: multi-agent
 spanning_tree:
   mode: mstp
@@ -182,10 +182,16 @@ vlans:
   - MLAG
   tenant: system
 - id: 10
-  name: BLUE-NET
+  name: HQ1-CORP-USERS
   tenant: MY_FABRIC
-- id: 20
-  name: GREEN-NET
+- id: 11
+  name: HQ1-VOICE
+  tenant: MY_FABRIC
+- id: 12
+  name: HQ1-PRINTERS
+  tenant: MY_FABRIC
+- id: 99
+  name: CAMPUS-GUEST-WIFI
   tenant: MY_FABRIC
 vrfs:
 - name: MGMT

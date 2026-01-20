@@ -235,7 +235,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| RACK2 | Vlan4094 | 192.168.0.5 | Port-Channel47 |
+| HQ_FLOOR2_RACK | Vlan4094 | 192.168.0.5 | Port-Channel47 |
 
 Dual primary detection is disabled.
 
@@ -244,7 +244,7 @@ Dual primary detection is disabled.
 ```eos
 !
 mlag configuration
-   domain-id RACK2
+   domain-id HQ_FLOOR2_RACK
    local-interface Vlan4094
    peer-address 192.168.0.5
    peer-link Port-Channel47
@@ -298,19 +298,27 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 10 | BLUE-NET | - |
-| 30 | ORANGE-NET | - |
+| 20 | HQ2-CORP-USERS | - |
+| 21 | HQ2-VOICE | - |
+| 22 | HQ2-CONF-AV | - |
+| 99 | CAMPUS-GUEST-WIFI | - |
 | 4094 | MLAG | MLAG |
 
 ### VLANs Device Configuration
 
 ```eos
 !
-vlan 10
-   name BLUE-NET
+vlan 20
+   name HQ2-CORP-USERS
 !
-vlan 30
-   name ORANGE-NET
+vlan 21
+   name HQ2-VOICE
+!
+vlan 22
+   name HQ2-CONF-AV
+!
+vlan 99
+   name CAMPUS-GUEST-WIFI
 !
 vlan 4094
    name MLAG
@@ -327,9 +335,9 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | L2_SPINE1_Ethernet3 | *trunk | *10,30 | *- | *- | 1 |
-| Ethernet2 | L2_SPINE2_Ethernet3 | *trunk | *10,30 | *- | *- | 1 |
-| Ethernet3 | SERVER_HostC_Eth1 | access | 10 | - | - | - |
+| Ethernet1 | L2_SPINE1_Ethernet3 | *trunk | *20-22,99 | *- | *- | 1 |
+| Ethernet2 | L2_SPINE2_Ethernet3 | *trunk | *20-22,99 | *- | *- | 1 |
+| Ethernet3 | SERVER_HostC_Eth1 | access | 20 | - | - | - |
 | Ethernet47 | MLAG_LEAF4_Ethernet47 | *trunk | *- | *- | *MLAG | 47 |
 | Ethernet48 | MLAG_LEAF4_Ethernet48 | *trunk | *- | *- | *MLAG | 47 |
 
@@ -352,7 +360,7 @@ interface Ethernet2
 interface Ethernet3
    description SERVER_HostC_Eth1
    no shutdown
-   switchport access vlan 10
+   switchport access vlan 20
    switchport mode access
    switchport
    spanning-tree portfast
@@ -376,7 +384,7 @@ interface Ethernet48
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | L2_SPINES_Port-Channel3 | trunk | 10,30 | - | - | - | - | 1 | - |
+| Port-Channel1 | L2_SPINES_Port-Channel3 | trunk | 20-22,99 | - | - | - | - | 1 | - |
 | Port-Channel47 | MLAG_LEAF4_Port-Channel47 | trunk | - | - | MLAG | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
@@ -386,7 +394,7 @@ interface Ethernet48
 interface Port-Channel1
    description L2_SPINES_Port-Channel3
    no shutdown
-   switchport trunk allowed vlan 10,30
+   switchport trunk allowed vlan 20-22,99
    switchport mode trunk
    switchport
    mlag 1

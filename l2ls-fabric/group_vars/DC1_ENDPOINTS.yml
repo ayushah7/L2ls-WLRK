@@ -12,21 +12,31 @@ connected_endpoints_keys: # dynamic_key: connected_endpoints
 port_profiles:
   - profile: PP-DEFAULTS
     spanning_tree_portfast: edge
-  - profile: PP-BLUE
+
+  - profile: PP-HQ-F1-USER
     mode: access
-    vlans: "10"
+    vlans: "10"           # HQ-F1-CORP-USERS
     parent_profile: PP-DEFAULTS
-  - profile: PP-GREEN
+
+  - profile: PP-HQ-F1-VOICE
     mode: access
-    vlans: "20"
+    vlans: "11"           # HQ-F1-VOICE
     parent_profile: PP-DEFAULTS
-  - profile: PP-ORANGE
+
+  - profile: PP-HQ-F2-USER
     mode: access
-    vlans: "30"
+    vlans: "20"           # HQ-F2-CORP-USERS
     parent_profile: PP-DEFAULTS
+
+  - profile: PP-CAMPUS-GUEST
+    mode: access
+    vlans: "99"           # CAMPUS-GUEST
+    parent_profile: PP-DEFAULTS
+
   - profile: PP-FIREWALL
     mode: trunk
-    vlans: "10,20,30"
+    vlans: "10,11,12,20,21,22,99"
+
   - profile: PP-DOT1X
     mode: "trunk phone"
     spanning_tree_portfast: edge
@@ -70,21 +80,21 @@ servers:
       - endpoint_ports: [Eth1]
         switch_ports: [Ethernet3]
         switches: [LEAF2]
-        profile: PP-GREEN
+        profile: PP-HQ-F1-USER
   - name: HostC
     rack: POD2
     adapters:
       - endpoint_ports: [Eth1]
         switch_ports: [Ethernet3]
         switches: [LEAF3]
-        profile: PP-BLUE
+        profile: PP-HQ-F2-USER
   - name: Host2
     rack: POD2
     adapters:
       - endpoint_ports: [Eth1]
         switch_ports: [Ethernet3]
         switches: [LEAF4]
-        profile: PP-ORANGE
+        profile: PP-DOT1X
 
 firewalls:
 

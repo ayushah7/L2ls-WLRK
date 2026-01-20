@@ -235,7 +235,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| RACK1 | Vlan4094 | 192.168.0.1 | Port-Channel47 |
+| HQ_FLOOR1_RACK | Vlan4094 | 192.168.0.1 | Port-Channel47 |
 
 Dual primary detection is disabled.
 
@@ -244,7 +244,7 @@ Dual primary detection is disabled.
 ```eos
 !
 mlag configuration
-   domain-id RACK1
+   domain-id HQ_FLOOR1_RACK
    local-interface Vlan4094
    peer-address 192.168.0.1
    peer-link Port-Channel47
@@ -298,8 +298,10 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 10 | BLUE-NET | - |
-| 20 | GREEN-NET | - |
+| 10 | HQ1-CORP-USERS | - |
+| 11 | HQ1-VOICE | - |
+| 12 | HQ1-PRINTERS | - |
+| 99 | CAMPUS-GUEST-WIFI | - |
 | 4094 | MLAG | MLAG |
 
 ### VLANs Device Configuration
@@ -307,10 +309,16 @@ vlan internal order ascending range 1006 1199
 ```eos
 !
 vlan 10
-   name BLUE-NET
+   name HQ1-CORP-USERS
 !
-vlan 20
-   name GREEN-NET
+vlan 11
+   name HQ1-VOICE
+!
+vlan 12
+   name HQ1-PRINTERS
+!
+vlan 99
+   name CAMPUS-GUEST-WIFI
 !
 vlan 4094
    name MLAG
@@ -327,8 +335,8 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | L2_SPINE1_Ethernet1 | *trunk | *10,20 | *- | *- | 1 |
-| Ethernet2 | L2_SPINE2_Ethernet1 | *trunk | *10,20 | *- | *- | 1 |
+| Ethernet1 | L2_SPINE1_Ethernet1 | *trunk | *10-12,99 | *- | *- | 1 |
+| Ethernet2 | L2_SPINE2_Ethernet1 | *trunk | *10-12,99 | *- | *- | 1 |
 | Ethernet3 | SERVER_HostA_Eth1 | - | - | - | - | - |
 | Ethernet47 | MLAG_LEAF2_Ethernet47 | *trunk | *- | *- | *MLAG | 47 |
 | Ethernet48 | MLAG_LEAF2_Ethernet48 | *trunk | *- | *- | *MLAG | 47 |
@@ -374,7 +382,7 @@ interface Ethernet48
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | L2_SPINES_Port-Channel1 | trunk | 10,20 | - | - | - | - | 1 | - |
+| Port-Channel1 | L2_SPINES_Port-Channel1 | trunk | 10-12,99 | - | - | - | - | 1 | - |
 | Port-Channel47 | MLAG_LEAF2_Port-Channel47 | trunk | - | - | MLAG | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
@@ -384,7 +392,7 @@ interface Ethernet48
 interface Port-Channel1
    description L2_SPINES_Port-Channel1
    no shutdown
-   switchport trunk allowed vlan 10,20
+   switchport trunk allowed vlan 10-12,99
    switchport mode trunk
    switchport
    mlag 1

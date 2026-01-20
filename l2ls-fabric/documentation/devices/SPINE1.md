@@ -298,9 +298,13 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 10 | BLUE-NET | - |
-| 20 | GREEN-NET | - |
-| 30 | ORANGE-NET | - |
+| 10 | HQ1-CORP-USERS | - |
+| 11 | HQ1-VOICE | - |
+| 12 | HQ1-PRINTERS | - |
+| 20 | HQ2-CORP-USERS | - |
+| 21 | HQ2-VOICE | - |
+| 22 | HQ2-CONF-AV | - |
+| 99 | CAMPUS-GUEST-WIFI | - |
 | 4094 | MLAG | MLAG |
 
 ### VLANs Device Configuration
@@ -308,13 +312,25 @@ vlan internal order ascending range 1006 1199
 ```eos
 !
 vlan 10
-   name BLUE-NET
+   name HQ1-CORP-USERS
+!
+vlan 11
+   name HQ1-VOICE
+!
+vlan 12
+   name HQ1-PRINTERS
 !
 vlan 20
-   name GREEN-NET
+   name HQ2-CORP-USERS
 !
-vlan 30
-   name ORANGE-NET
+vlan 21
+   name HQ2-VOICE
+!
+vlan 22
+   name HQ2-CONF-AV
+!
+vlan 99
+   name CAMPUS-GUEST-WIFI
 !
 vlan 4094
    name MLAG
@@ -331,11 +347,11 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | L2_LEAF1_Ethernet1 | *trunk | *10,20 | *- | *- | 1 |
-| Ethernet2 | L2_LEAF2_Ethernet1 | *trunk | *10,20 | *- | *- | 1 |
-| Ethernet3 | L2_LEAF3_Ethernet1 | *trunk | *10,30 | *- | *- | 3 |
-| Ethernet4 | L2_LEAF4_Ethernet1 | *trunk | *10,30 | *- | *- | 3 |
-| Ethernet5 | FIREWALL_FIREWALL_Eth1 | *trunk | *10,20,30 | *- | *- | 5 |
+| Ethernet1 | L2_LEAF1_Ethernet1 | *trunk | *10-12,99 | *- | *- | 1 |
+| Ethernet2 | L2_LEAF2_Ethernet1 | *trunk | *10-12,99 | *- | *- | 1 |
+| Ethernet3 | L2_LEAF3_Ethernet1 | *trunk | *20-22,99 | *- | *- | 3 |
+| Ethernet4 | L2_LEAF4_Ethernet1 | *trunk | *20-22,99 | *- | *- | 3 |
+| Ethernet5 | FIREWALL_FIREWALL_Eth1 | *trunk | *10-12,20-22,99 | *- | *- | 5 |
 | Ethernet47 | MLAG_SPINE2_Ethernet47 | *trunk | *- | *- | *MLAG | 47 |
 | Ethernet48 | MLAG_SPINE2_Ethernet48 | *trunk | *- | *- | *MLAG | 47 |
 
@@ -389,9 +405,9 @@ interface Ethernet48
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | L2_RACK1_Port-Channel1 | trunk | 10,20 | - | - | - | - | 1 | - |
-| Port-Channel3 | L2_RACK2_Port-Channel1 | trunk | 10,30 | - | - | - | - | 3 | - |
-| Port-Channel5 | FIREWALL_FIREWALL | trunk | 10,20,30 | - | - | - | - | 5 | - |
+| Port-Channel1 | L2_HQ_FLOOR1_RACK_Port-Channel1 | trunk | 10-12,99 | - | - | - | - | 1 | - |
+| Port-Channel3 | L2_HQ_FLOOR2_RACK_Port-Channel1 | trunk | 20-22,99 | - | - | - | - | 3 | - |
+| Port-Channel5 | FIREWALL_FIREWALL | trunk | 10-12,20-22,99 | - | - | - | - | 5 | - |
 | Port-Channel47 | MLAG_SPINE2_Port-Channel47 | trunk | - | - | MLAG | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
@@ -399,17 +415,17 @@ interface Ethernet48
 ```eos
 !
 interface Port-Channel1
-   description L2_RACK1_Port-Channel1
+   description L2_HQ_FLOOR1_RACK_Port-Channel1
    no shutdown
-   switchport trunk allowed vlan 10,20
+   switchport trunk allowed vlan 10-12,99
    switchport mode trunk
    switchport
    mlag 1
 !
 interface Port-Channel3
-   description L2_RACK2_Port-Channel1
+   description L2_HQ_FLOOR2_RACK_Port-Channel1
    no shutdown
-   switchport trunk allowed vlan 10,30
+   switchport trunk allowed vlan 20-22,99
    switchport mode trunk
    switchport
    mlag 3
@@ -417,7 +433,7 @@ interface Port-Channel3
 interface Port-Channel5
    description FIREWALL_FIREWALL
    no shutdown
-   switchport trunk allowed vlan 10,20,30
+   switchport trunk allowed vlan 10,11,12,20,21,22,99
    switchport mode trunk
    switchport
    mlag 5
